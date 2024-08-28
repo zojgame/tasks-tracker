@@ -51,7 +51,6 @@ const TreeNode = observer(( { node } : TreeNodeProps) => {
                     {node.label}
                 </span>
                 <Button 
-                    className={`${isOpen ? "rotate-0" : '-rotate-90'}`}
                     onClick={handleOnSelect} >
                     <SquaresIcon />
                 </Button>
