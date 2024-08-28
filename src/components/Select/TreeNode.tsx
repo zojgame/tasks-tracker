@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { Button, TreeNode as TreeNodeType } from "../../shared";
 import { CheckIcon, ChevronDownIcon, SquaresIcon } from "../../icons";
 import { tasksStore } from "../../store/TasksStore";
 import { observer } from "mobx-react-lite";
 import { updateIsOpenTreeNodeById, updateIsOpenAllNodes } from "../../shared";
-import { nodesInitialData } from "../../shared";
 
 
 type TreeNodeProps = {
@@ -14,17 +12,16 @@ type TreeNodeProps = {
 const TreeNode = observer(( { node } : TreeNodeProps) => {
     const { isOpen } = node;    
     const { setCurrentTreeNode, treeNodes, setTreeNodes } = tasksStore;
-    const [isAllOpen, setIsAllOpen] = useState(isOpen);
+    // const [isAllOpen, setIsAllOpen] = useState(isOpen);
 
     const handleToggle = () => {
-        const updatedNodes = updateIsOpenTreeNodeById(nodesInitialData, node.id, !isOpen);
+        const updatedNodes = updateIsOpenTreeNodeById(treeNodes, node.id, !isOpen);
         setTreeNodes(updatedNodes);
     };
 
     const handleOnToggleAll = () => {       
         if (!node.children) return;
         const updatedNodes = updateIsOpenAllNodes(node, treeNodes, !isOpen);
-        console.log('updatedNodes', updatedNodes);
         setTreeNodes(updatedNodes);
     };
 

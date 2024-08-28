@@ -1,11 +1,9 @@
-import { TreeNode as TreeNodeType } from "../../shared";
+import { tasksStore } from "../../store/TasksStore";
 import { TreeNode } from "./TreeNode";
+import { observer } from "mobx-react-lite";
 
-type SelectProps = {
-    treeNodes: TreeNodeType[]
-}
-
-const Select = ({ treeNodes } : SelectProps) => {      
+const SelectContainer = observer(() => { 
+    const { treeNodes } = tasksStore;     
     
     return (
         <div className="absolute top-4 left-0 w-[calc(100%-16px)]">
@@ -18,5 +16,6 @@ const Select = ({ treeNodes } : SelectProps) => {
         </div>
     );
 
-};
-export { Select };
+});
+
+export { SelectContainer };
