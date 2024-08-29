@@ -3,7 +3,8 @@ import { CheckIcon, ChevronDownIcon, SquaresIcon } from "../../icons";
 import { tasksStore } from "../../store/TasksStore";
 import { observer } from "mobx-react-lite";
 import { updateIsOpenTreeNodeById, updateIsOpenAllNodes } from "../../shared";
-
+import { useEffect, useState } from "react";
+import { isAllOpen } from "../../shared/calculate";
 
 type TreeNodeProps = {
     node: TreeNodeType;
@@ -12,6 +13,13 @@ type TreeNodeProps = {
 const TreeNode = observer(( { node } : TreeNodeProps) => {
     const { isOpen } = node;    
     const { setCurrentTreeNode, treeNodes, setTreeNodes } = tasksStore;
+    const [isAllChildrenSelected, setIsAllChildrenSelected] = useState(false);
+
+    useEffect(() => {
+        const isAllSelected = isAllOpen(node);
+        console.log('isAllSelected', isAllSelected, node.label, node.children);
+        setIsAllChildrenSelected(isAllSelected);
+    }, [isOpen, treeNodes, node]);
 
     const handleToggle = () => {
         const updatedNodes = updateIsOpenTreeNodeById(treeNodes, node.id, !isOpen);
@@ -34,7 +42,10 @@ const TreeNode = observer(( { node } : TreeNodeProps) => {
                 className="cursor-pointer flex w-full bg-white text-black select-none items-center">
                 {
                     node.children && node.children.length > 0 &&
-                    <Button onClick={handleOnToggleAll} title="Toggle">
+                    <Button 
+                        onClick={handleOnToggleAll} 
+                        title="Toggle" 
+                        className={`${isAllChildrenSelected ? "opacity-100" : "opacity-0"}`}>
                         <CheckIcon />
                     </Button>
                 }
