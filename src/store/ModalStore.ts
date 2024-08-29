@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 export class ModalStore{
-    isModalOpen: boolean = true;
+    isModalOpen: boolean = false;
 
     constructor(){
         makeAutoObservable(this);

@@ -12,7 +12,6 @@ type TreeNodeProps = {
 const TreeNode = observer(( { node } : TreeNodeProps) => {
     const { isOpen } = node;    
     const { setCurrentTreeNode, treeNodes, setTreeNodes } = tasksStore;
-    // const [isAllOpen, setIsAllOpen] = useState(isOpen);
 
     const handleToggle = () => {
         const updatedNodes = updateIsOpenTreeNodeById(treeNodes, node.id, !isOpen);
@@ -21,7 +20,7 @@ const TreeNode = observer(( { node } : TreeNodeProps) => {
 
     const handleOnToggleAll = () => {       
         if (!node.children) return;
-        const updatedNodes = updateIsOpenAllNodes(node, treeNodes, !isOpen);
+        const updatedNodes = updateIsOpenAllNodes(treeNodes, node, !isOpen);
         setTreeNodes(updatedNodes);
     };
 

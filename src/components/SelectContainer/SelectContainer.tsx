@@ -20,13 +20,15 @@ const SelectContainer = observer(() => {
     }, []);
 
     return (
-        <div className="absolute top-4 left-0 w-[calc(100%-16px)]">
-            {treeNodes.map((node) => 
-                <TreeNode
-                    key={node.id}
-                    node={node}
-                />
-            )}            
+        <div className="p-4 border-white border relative w-1/2 h-full flex flex-col justify-center">
+            <div className="absolute top-4 left-0 w-[calc(100%-16px)]">
+                {treeNodes.map((node) => 
+                    <TreeNode
+                        key={node.id}
+                        node={node}
+                    />
+                )}            
+            </div>
         </div>
     );
 

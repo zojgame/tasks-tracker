@@ -1,26 +1,17 @@
 import { TreeNode } from "..";
 
-function updateIsOpenAllNodes(nodeToUpdate: TreeNode,
-    nodes: TreeNode[],
-    isOpen: boolean): TreeNode[] {
-    const updatedTreeNodes = nodes.map((node) => {
-        if (node.id === nodeToUpdate.id || node.children?.some(child => child.id === nodeToUpdate.id)) {
-            return {
-                ...node,
-                isOpen,
-                children: node.children ? updateIsOpenAllNodes(nodeToUpdate, node.children, isOpen) : [],
-            };
-        }
-        if (node.children) {
-            return {
-                ...node,
-                children: updateIsOpenAllNodes(nodeToUpdate, node.children, isOpen),
-            };
-        }
-        return node;
-    });
-
-    return updatedTreeNodes;
+function updateIsOpenAllNodes(nodes: TreeNode[],
+    updatedNode: TreeNode,
+    isOpen: boolean, 
+    isParentFound: boolean = false): TreeNode[] {
+    return nodes.map(node => {
+        const newIsParentFound = node.id === updatedNode.id || isParentFound;
+        return ({
+            ...node,
+            isOpen: newIsParentFound ? isOpen : node.isOpen,
+            children: node.children ? updateIsOpenAllNodes(node.children, updatedNode, isOpen, newIsParentFound) : []
+        });    
+    });    
 }
 
 
