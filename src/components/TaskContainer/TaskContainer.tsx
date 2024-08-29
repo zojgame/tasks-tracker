@@ -2,12 +2,13 @@ import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { tasksStore } from "../../store/TasksStore";
 import { DeleteIcon, EditIcon } from "../../icons";
-import { Button, updateTitleNodesById } from "../../shared";
+import { Button, updateTitleNodesById, useTasks } from "../../shared";
 import { deleteNodeById } from "../../shared/calculate/deleteNodeById";
 
 const TaskContainer = observer(() => {
-    const { currentTreeNode, setTreeNodes, treeNodes, setCurrentTreeNode } = tasksStore; 
+    const { currentTreeNode, setCurrentTreeNode } = tasksStore; 
     const [isEditing, setIsEditing] = useState(false); 
+    const {setTreeNodes, treeNodes} = useTasks();
     
     const handleOnEditClick = () => {
         setIsEditing(prev => !prev);
@@ -25,7 +26,7 @@ const TaskContainer = observer(() => {
 
     const handleDeleteById = () => {
         if(!currentTreeNode) return;
-        const updatedNodes = deleteNodeById(treeNodes, currentTreeNode.id, true);
+        const updatedNodes = deleteNodeById(treeNodes, currentTreeNode.id);
         setCurrentTreeNode(null);
         setTreeNodes(updatedNodes);
     };

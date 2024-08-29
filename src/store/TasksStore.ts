@@ -1,13 +1,12 @@
 import { makeAutoObservable } from "mobx";
 import { TreeNode as TreeNodeType } from "../shared";
-import { nodesInitialData } from "../shared";
 
 /**
  * Глобальное хранилище заданий
  * @returns {TasksStore}
  */
 export class TasksStore{
-    treeNodes: TreeNodeType[] = nodesInitialData;
+    treeNodes: TreeNodeType[] = [];
     currentTreeNode: TreeNodeType | null = null;
 
     constructor(){
