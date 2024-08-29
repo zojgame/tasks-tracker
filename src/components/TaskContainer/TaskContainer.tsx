@@ -1,9 +1,11 @@
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { tasksStore } from "../../store/TasksStore";
-import { DeleteIcon, EditIcon } from "../../icons";
-import { Button, updateTitleNodesById, useTasks } from "../../shared";
+import { DeleteIcon, EditIcon, PlusIcon } from "../../icons";
+import { Button, Input, updateTitleNodesById, useTasks } from "../../shared";
 import { deleteNodeById } from "../../shared/calculate/deleteNodeById";
+import { modalStore } from "../../store/ModalStore";
+import { updateDescriptionNodesById } from "../../shared/calculate";
 
 const TaskContainer = observer(() => {
     const { currentTreeNode, setCurrentTreeNode } = tasksStore; 
@@ -24,11 +26,24 @@ const TaskContainer = observer(() => {
         setTreeNodes(updatedNodes);
     };
 
+    const handleOnChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if(!currentTreeNode) return;
+        const description = event.target.value;
+        const updatedNodes = updateDescriptionNodesById(treeNodes, currentTreeNode.id, description);
+        setCurrentTreeNode({...currentTreeNode, description});
+        setTreeNodes(updatedNodes);
+    };
+
     const handleDeleteById = () => {
         if(!currentTreeNode) return;
         const updatedNodes = deleteNodeById(treeNodes, currentTreeNode.id);
+
         setCurrentTreeNode(null);
         setTreeNodes(updatedNodes);
+    };
+
+    const handleOnAddClick = () => {
+        modalStore.setIsModalOpen(true);
     };
 
 
@@ -37,19 +52,27 @@ const TaskContainer = observer(() => {
             {currentTreeNode &&
                 <>
                     <div className="flex gap-4 items-center justify-center">
-                        {isEditing ? <input 
+                        {isEditing ? <Input placeholder="Заголовок" 
                             onChange={handleOnChangeTitle}
-                            className="bg-white focus:border-none focus:outer-none text-2xl" 
-                            defaultValue={currentTreeNode.label} /> 
+                            value={currentTreeNode.label}
+                        /> 
                             : <h2 className="font-bold text-2xl text-center">{currentTreeNode.label}</h2>}
-                        <Button onClick={handleOnEditClick}>
+                        <Button onClick={handleOnEditClick} title="Редактировать">
                             <EditIcon />
                         </Button>
                     </div>
-                    <p className="text-xl">{currentTreeNode.description}</p>  
-                    <Button onClick={handleDeleteById}>
-                        <DeleteIcon />
-                    </Button>              
+                    {isEditing ? <Input placeholder="Описание" 
+                        onChange={handleOnChangeDescription}
+                        value={currentTreeNode.description}
+                    />  : <p className="text-xl">{currentTreeNode.description}</p>}
+                    <div className="flex justify-between">
+                        <Button onClick={handleDeleteById} label="Удалить подзадачу" title="Удалить">
+                            <DeleteIcon />
+                        </Button>              
+                        <Button onClick={handleOnAddClick} label="Добавить подзадачу" title="Добавить">
+                            <PlusIcon />
+                        </Button>
+                    </div> 
                 </>                
             }
         </div>

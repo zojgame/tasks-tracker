@@ -35,13 +35,14 @@ const TreeNode = observer(( { node } : TreeNodeProps) => {
                 className="cursor-pointer flex w-full bg-white text-black select-none items-center">
                 {
                     node.children && node.children.length > 0 &&
-                    <Button onClick={handleOnToggleAll} >
+                    <Button onClick={handleOnToggleAll} title="Toggle">
                         <CheckIcon />
                     </Button>
                 }
                 {
                     node.children && node.children.length > 0 &&
                     <Button 
+                        title="Развернуть/Свернуть"
                         className={`${isOpen ? "rotate-0" : '-rotate-90'}`}
                         onClick={handleToggle} >
                         <ChevronDownIcon />
@@ -51,6 +52,7 @@ const TreeNode = observer(( { node } : TreeNodeProps) => {
                     {node.label}
                 </span>
                 <Button 
+                    title="Выбрать"
                     onClick={handleOnSelect} >
                     <SquaresIcon />
                 </Button>
