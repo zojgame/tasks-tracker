@@ -7,9 +7,15 @@ import { Theme } from "./shared";
 
 function App() {
     const { theme } = themeStore;
+    const { setIsModalOpen } = modalStore;
+
+    const handleOnModalClose = () => {
+        setIsModalOpen(false);        
+    };
 
     useEffect(() => {
         localStorage.setItem('theme', theme);
+
         if(theme === Theme.DARK){ 
             const primaryColor = `var(--${Theme.DARK}-color)`;
             const secondaryColor = `var(--${Theme.LIGHT}-color)`;
@@ -26,13 +32,7 @@ function App() {
             document.documentElement.style.setProperty('--secondary-color', secondaryColor);
         }
         
-    }, [theme]);
-
-    const { setIsModalOpen } = modalStore;
-
-    const handleOnModalClose = () => {
-        setIsModalOpen(false);        
-    };
+    }, [theme]);    
 
     return (        
         <section className="h-screen flex justify-center items-start primary-theme p-4 gap-4">                  

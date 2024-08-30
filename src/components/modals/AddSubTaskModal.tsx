@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { Button, Input } from "../../shared";
+import { Button, Input, TreeNode } from "../../shared";
 import { CloseIcon, PlusIcon } from "../../icons";
 import { ModalWrapper } from "./ModalWrapper";
 import { modalStore } from "../../store/ModalStore";
@@ -31,8 +31,8 @@ const AddSubTaskModal = observer(({handleOnClose} : ModalProps) => {
     const handleOnSubmit = () => {
         if(!currentTreeNode) return;
 
-        const newSubTask = {
-            id: Date.now(),
+        const newSubTask: TreeNode = {
+            id: String(Date.now()),
             label: title,
             description: description,
             isOpen: false,
