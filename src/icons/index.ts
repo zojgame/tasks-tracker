@@ -5,3 +5,5 @@ export * from './EditIcon';
 export * from './DeleteIcon';
 export * from './PlusIcon';
 export * from './CloseIcon';
+export * from './NightIcon';
+export * from './SunIcon';

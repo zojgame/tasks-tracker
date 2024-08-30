@@ -48,7 +48,7 @@ const TaskContainer = observer(() => {
 
 
     return (
-        <div className="w-1/2 bg-white h-full p-4 text-black flex flex-col gap-4">
+        <div className="w-1/2 primary-theme h-full p-4 flex flex-col gap-4">
             {currentTreeNode &&
                 <>
                     <div className="flex gap-4 items-center justify-center">

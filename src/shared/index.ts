@@ -9,3 +9,6 @@ export * from './ui/Button';
 export * from './ui/Input';
 
 export * from './hooks/useTasks';
+
+export * from './types/themes';
+export * from './types/treeNode';

@@ -17,9 +17,8 @@ const TreeNode = observer(( { node } : TreeNodeProps) => {
 
     useEffect(() => {
         const isAllSelected = isAllOpen(node);
-        console.log('isAllSelected', isAllSelected, node.label, node.children);
         setIsAllChildrenSelected(isAllSelected);
-    }, [isOpen, treeNodes, node]);
+    }, [node]);
 
     const handleToggle = () => {
         const updatedNodes = updateIsOpenTreeNodeById(treeNodes, node.id, !isOpen);
@@ -39,7 +38,7 @@ const TreeNode = observer(( { node } : TreeNodeProps) => {
     return (
         <div className="pl-5 transition-none duration-300 ease-in-out">
             <div
-                className="cursor-pointer flex w-full bg-white text-black select-none items-center">
+                className="cursor-pointer border border-b-0 flex w-full primary-theme select-none items-center">
                 {
                     node.children && node.children.length > 0 &&
                     <Button 

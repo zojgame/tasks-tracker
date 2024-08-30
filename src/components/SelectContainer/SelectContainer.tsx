@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import { tasksStore } from "../../store/TasksStore";
 import { TreeNode } from "./TreeNode";
 import { nodesInitialData } from "../../shared";
+import { DaySwitcher } from "..";
 
 const SelectContainer = observer(() => { 
     const { treeNodes } = tasksStore; 
@@ -20,8 +21,9 @@ const SelectContainer = observer(() => {
     }, []);
 
     return (
-        <div className="p-4 border-white border relative w-1/2 h-full flex flex-col justify-center">
-            <div className="absolute top-4 left-0 w-[calc(100%-16px)]">
+        <div className="p-4 primary-theme relative w-1/2 h-full flex flex-col justify-center border-r">
+            <DaySwitcher />   
+            <div className="absolute top-14 left-0 w-[calc(100%-16px)]">
                 {treeNodes.map((node) => 
                     <TreeNode
                         key={node.id}
