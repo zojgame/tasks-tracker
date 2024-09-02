@@ -40,7 +40,7 @@ const TreeNode = observer(( { node } : TreeNodeProps) => {
             <div
                 className="cursor-pointer border border-b-0 last:border-b flex w-full primary-theme select-none items-center">
                 {
-                    node.children && node.children.length > 0 &&
+                    
                     <Button 
                         onClick={handleOnToggleAll} 
                         title="Toggle" 

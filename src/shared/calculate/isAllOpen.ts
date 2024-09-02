@@ -8,7 +8,7 @@ import { TreeNode } from "../types/treeNode";
  */
 export const isAllOpen = (node: TreeNode): boolean => {
     const isNodeOpen = node.isOpen;
-    if(!(node.children && node.children.length > 0)) return true;
     if (!isNodeOpen) return false;
+    if(!node.children || node.children.length === 0) return isNodeOpen;
     return node.children.every(child => isAllOpen(child));
 };
